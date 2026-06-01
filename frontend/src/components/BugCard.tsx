@@ -1,9 +1,11 @@
 import { BugReport } from '../types';
 import { Link } from 'react-router-dom';
-import { AlertCircle, AlertTriangle, CheckCircle, Clock, Trash2 } from 'lucide-react';
+import { AlertCircle, AlertTriangle, CheckCircle, Clock, Square, CheckSquare, Trash2 } from 'lucide-react';
 
 interface BugCardProps {
   bug: BugReport;
+  isSelected?: boolean;
+  onSelectChange?: (id: string, selected: boolean) => void;
   onDelete?: (id: string) => void;
   onStatusChange?: (id: string, status: BugReport['status']) => void;
 }
@@ -28,14 +30,26 @@ const statusOptions: Array<{ value: BugReport['status']; label: string }> = [
   { value: 'resolved', label: 'Resolved' },
 ];
 
-export default function BugCard({ bug, onDelete, onStatusChange }: BugCardProps) {
+export default function BugCard({ bug, isSelected = false, onSelectChange, onDelete, onStatusChange }: BugCardProps) {
   const config = severityConfig[bug.severity];
   const Icon = config.icon;
   const statusBadge = statusConfig[bug.status] || statusConfig.todo;
+  const SelectionIcon = isSelected ? CheckSquare : Square;
 
   return (
     <div className={`card border-l-4 ${config.color} hover:shadow-lg transition-shadow`}>
       <div className="flex items-start gap-3">
+        {onSelectChange && (
+          <button
+            type="button"
+            onClick={() => onSelectChange(bug.id, !isSelected)}
+            className="mt-0.5 rounded-lg p-2 text-gray-500 transition-colors hover:bg-white/70 hover:text-primary-600"
+            aria-label={`${isSelected ? 'Deselect' : 'Select'} ${bug.title}`}
+            title={isSelected ? 'Deselect bug' : 'Select bug'}
+          >
+            <SelectionIcon className="h-5 w-5" />
+          </button>
+        )}
         <Link to={`/bug/${bug.id}`} className="flex-1 min-w-0">
           <div className="flex items-start justify-between mb-3">
             <div className="flex items-start gap-3 flex-1">

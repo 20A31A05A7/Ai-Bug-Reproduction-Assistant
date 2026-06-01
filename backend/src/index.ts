@@ -7,6 +7,7 @@ import { config, validateConfig } from './config.js';
 import { initSupabase, getSupabase } from './db.js';
 import bugsRouter from './routes/bugs.js';
 import uploadRouter from './routes/upload.js';
+import excelRouter from './routes/excel.js';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -52,6 +53,7 @@ app.get('/api/uploads-status', (req, res) => {
 // Routes
 app.use('/api/bugs', bugsRouter);
 app.use('/api/upload', uploadRouter);
+app.use('/api/excel', excelRouter);
 
 // Error handling middleware
 app.use((err: any, req: express.Request, res: express.Response, next: express.NextFunction) => {
@@ -88,6 +90,7 @@ app.listen(PORT, () => {
   PATCH /api/bugs/:id        - Update bug report
   DELETE /api/bugs/:id       - Delete bug report
   POST /api/upload           - Upload screenshot
+  POST /api/excel/insert     - Insert selected bugs into Excel workflow
 
   🌐 Frontend: http://localhost:3000
   `);

@@ -39,6 +39,11 @@ export const bugService = {
     await axios.delete(`${API_BASE}/bugs/${id}`);
   },
 
+  async insertBugsIntoExcel(bugs: BugReport[]): Promise<{ inserted: number; message: string }> {
+    const response = await axios.post(`${API_BASE}/excel/insert`, { bugs });
+    return response.data;
+  },
+
   // Upload APIs
   async uploadScreenshot(file: File): Promise<UploadResponse> {
     const formData = new FormData();

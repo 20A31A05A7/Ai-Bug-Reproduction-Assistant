@@ -20,6 +20,9 @@ export const config = {
   // File Upload
   maxFileSize: Number(process.env.MAX_FILE_SIZE || 50 * 1024 * 1024), // default 50MB
   uploadDir: 'uploads',
+
+  // Excel export
+  powerAutomateExcelWebhookUrl: process.env.POWER_AUTOMATE_EXCEL_WEBHOOK_URL || '',
   
   // CORS
   corsOrigin: process.env.CORS_ORIGIN || 'http://localhost:3000',
