@@ -15,7 +15,7 @@ export const config = {
   openaiApiKey: process.env.OPENAI_API_KEY || '',
   claudeApiKey: process.env.CLAUDE_API_KEY || '',
   geminiApiKey: process.env.GEMINI_API_KEY || '',
-  geminiModel: process.env.GEMINI_MODEL || 'gemini-2.5-flash',
+  geminiModel: process.env.GEMINI_MODEL || 'gemini-3.5-flash',
   
   // File Upload
   maxFileSize: Number(process.env.MAX_FILE_SIZE || 50 * 1024 * 1024), // default 50MB
